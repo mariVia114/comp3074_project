@@ -1,0 +1,119 @@
+import { TouchableWithoutFeedback } from "@ui-kitten/components/devsupport";
+import React, {useState} from "react";
+import { Text, StyleSheet, ScrollView, Keyboard, TextInput, View, TouchableOpacity, Image, Alert } from "react-native";
+import * as Style from "../assets/styles";
+
+
+const AddRestaurant = ({navigation, ...props}) =>{
+    const [defaultRating, setDefaultRating] = useState(2)
+    const [maxRating, setMaxRating] = useState([1,2,3,4,5])
+    const starImgFilled = 'https://raw.githubusercontent.com/tranhonghan/images/main/star_filled.png'
+    const starImgCorner =  'https://raw.githubusercontent.com/tranhonghan/images/main/star_corner.png'
+    
+    const CustomRating = () =>{
+        return(
+            <View style={styles.customRating}>
+                {
+                    maxRating.map((item, key) => {
+                        return(
+                            <TouchableOpacity activeOpacity={0.7} key={item} onPress={() => setDefaultRating(item)}>
+                                <Image style={styles.starImgStyle} source={item<=defaultRating ? {uri:starImgFilled} : {uri:starImgCorner}}/>
+                            </TouchableOpacity>
+                        )
+                    })
+                }
+
+            </View>
+        )
+    }
+    return(
+        <ScrollView>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style={{padding:20, justifyContent:'space-evenly'}}>
+                    <TextInput style={[styles.input]} placeholder='Enter Name' value={props.restaurantName} onChangeText={(text) => props.setRestaurantName(text)}></TextInput>
+                    <TextInput style={[styles.input]} placeholder='Enter Address...' value={props.restaurantAddy} onChangeText={(text) => props.setRestaurantAddy(text)}></TextInput>
+                    <TextInput style={[styles.input]} placeholder='Phone Number...' value={props.restaurantPhone} onChangeText={(text) => props.setRestaurantPhone(text)}></TextInput>
+                    <TextInput style={[styles.input]} placeholder='Tag ie;#vegan' value={props.restaurantTags} onChangeText={(text) => props.setRestaurantTags(text)}></TextInput>
+                    <TextInput style={[styles.input, {height: 80} ]} placeholder='Description' value={props.restaurantDesc} onChangeText={(text) => props.setRestaurantDesc(text)}></TextInput>
+                    <Text style={styles.ratingText}>Rating:  </Text>
+                    <CustomRating style={{paddingTop:0}} value={props.restaurantRate} onPress={(text) => props.setRestaurantTags(text)}/>
+                    <TouchableOpacity style={styles.button} onPress={() => {
+                        if(props.restaurantName===''){
+                            Alert.alert('Please type something');
+                        }else{
+                            props.handleRestaurant();
+                            navigation.navigate('Restaurant')
+                        }
+                    }}><Text style={styles.buttonText} onPress={()=> props.handleRestaurant()}>Add</Text></TouchableOpacity>
+                
+                
+
+
+                </View>
+            </TouchableWithoutFeedback>
+        </ScrollView>
+    )
+}
+
+export const styles = StyleSheet.create({
+    AddRestaurantContainer:{
+        paddingHorizontal: 20,
+        marginTop:20,
+        alignItems:"center",
+        justifyContent:'center',
+    },
+    input:{
+        padding:20,
+        paddingTop:20,
+        marginBottom:20,
+        width:'100%',
+        fontSize: 15,
+        color: 'black',
+        fontWeight: '600',
+        opacity: 0.8,
+        shadowColor: Style.color,
+        shadowOpacity: 0.4,
+        shadowOffset: {width:0, height:4},
+        shadowRadius:8,
+        elevation: 5,
+        backgroundColor: 'white',
+        borderColor: Style.color,
+        borderWidth: 2,
+        borderRadius:5,
+        height: 60
+    },
+    ratingText:{
+        paddingTop:10,
+        width:'100%',
+        fontSize: 20,
+        fontWeight: '600',
+        height: 60
+    },
+    button:{
+        backgroundColor:Style.color,
+        width:'40%',
+        borderRadius:100,
+        justifyContent:'center',
+        alignItems:'center',
+        height:40,
+        alignSelf:'center',
+        marginTop:20
+    },
+    buttonText:{
+        color:'white',
+        fontSize:20,
+        fontWeight:'700',
+    },
+    customRating:{
+        justifyContent: 'center',
+        flexDirection: 'row',
+        marginTop: 30
+    },
+    starImgStyle:{
+        width:40,
+        height:40,
+        resizeMode:'cover'
+    }
+})
+
+export default AddRestaurant;
