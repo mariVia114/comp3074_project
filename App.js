@@ -71,7 +71,7 @@ export default function App() {
                       handleRestaurant={handleRestaurant}/>}
         </Stack.Screen>
         <Stack.Screen name='RestaurantDetails'>
-          {props => <RestaurantDetails {...props}  />}
+          {props => <RestaurantDetails {...props} restaurants={restaurants} setRestaurants={setRestaurants}  />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
