@@ -19,19 +19,15 @@ import * as eva from "@eva-design/eva";
 
 const RestaurantDetails = ({route, navigation, ...props}) => {
     const {id, restaurant} = route.params;
-    console.log(restaurant)
-
-
-
     return(
         <View style={styles.restaurantContainer}>
             <View>
-                      <Text style={styles.index}>{restaurant.newRestaurantName}</Text>
-                      <Text style={styles.index}>Address: {restaurant.newRestaurantAddy}</Text>
-                      <Text style={styles.index}>Phone: {restaurant.newRestaurantPhone}</Text>
-                      <Text style={styles.index}>Tags: {restaurant.newRestaurantTags}</Text>
-                      <Text style={styles.index}>Description: {restaurant.newRestaurantDesc}</Text>
-                      <Text style={styles.index}>Rating: {restaurant.newRestaurantRate}</Text>
+                      <Text style={styles.index}>{restaurant.restaurantName}</Text>
+                      <Text style={styles.index}>Address: {restaurant.restaurantAddy}</Text>
+                      <Text style={styles.index}>Phone: {restaurant.restaurantPhone}</Text>
+                      <Text style={styles.index}>Tags: {restaurant.restaurantTags}</Text>
+                      <Text style={styles.index}>Description: {restaurant.restaurantDesc}</Text>
+                      <Text style={styles.index}>Rating: {restaurant.restaurantRate}</Text>
             </View>
             <View style={styles.buttonWrapper}>
             <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate('EditRestaurant', {i: id, r: restaurant})}>

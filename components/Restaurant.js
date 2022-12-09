@@ -44,6 +44,7 @@ const Restaurant = ({navigation, ...props}) => {
         </View>
       </View>
       <ScrollView style={styles.scrollView} showsHorizontalScrollIndicator={false}>
+      {console.log("restaurant js" + props.restaurants)}
         {props.restaurants.length == 0
         ?
         <View style={styles.emptyRestaurantContainer}>
@@ -54,12 +55,12 @@ const Restaurant = ({navigation, ...props}) => {
             <View style={styles.item} key={index}>
                 <View>
                 <TouchableOpacity onPress={() => navigation.navigate('RestaurantDetails', {id: index, restaurant: item})}>
-                      <Text style={styles.index}>{index+1}. Name: {item.newRestaurantName}</Text>
-                      <Text style={styles.index}>Address: {item.newRestaurantAddy}</Text>
-                      <Text style={styles.index}>Phone: {item.newRestaurantPhone}</Text>
-                      <Text style={styles.index}>Tags: {item.newRestaurantTags}</Text>
-                      <Text style={styles.index}>Description: {item.newRestaurantDesc}</Text>
-                      <Text style={styles.index}>Rating: {item.newRestaurantRate}</Text>
+                      <Text style={styles.index}>{index+1}. Name: {item.restaurantName}</Text>
+                      <Text style={styles.index}>Address: {item.restaurantAddy}</Text>
+                      <Text style={styles.index}>Phone: {item.restaurantPhone}</Text>
+                      <Text style={styles.index}>Tags: {item.restaurantTags}</Text>
+                      <Text style={styles.index}>Description: {item.restaurantDesc}</Text>
+                      <Text style={styles.index}>Rating: {item.restaurantRate}</Text>
                 </TouchableOpacity>
                 </View>
               

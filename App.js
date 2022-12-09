@@ -19,23 +19,14 @@ export default function App() {
   const[restaurants, setRestaurants] = useState([]);
 
   function handleRestaurant(){
-    let newRestaurantName = restaurantName;
-    let newRestaurantAddy = restaurantAddy;
-    let newRestaurantPhone = restaurantPhone;
-    let newRestaurantTags = restaurantTags;
-    let newRestaurantRate = restaurantRate;
-    let newRestaurantDesc = restaurantDesc;
-    let newRestaurants = [{newRestaurantName,newRestaurantAddy, newRestaurantPhone,newRestaurantTags, newRestaurantRate,newRestaurantDesc}, ...restaurants]
+    let newRestaurants = [{restaurantName,restaurantAddy, restaurantPhone,restaurantTags, restaurantRate,restaurantDesc}, ...restaurants]
     setRestaurants(newRestaurants);
-    setRestaurantName('')
-    setRestaurantAddy('')
-    setRestaurantPhone('')
-    setRestaurantTags('')
-    setRestaurantRate('')
-    setRestaurantDesc('')
-
-
-
+    setRestaurantName('');
+    setRestaurantAddy('');
+    setRestaurantPhone('');
+    setRestaurantTags('');
+    setRestaurantRate('');
+    setRestaurantDesc('');
   }
   return (
     <NavigationContainer>
@@ -72,10 +63,32 @@ export default function App() {
                       handleRestaurant={handleRestaurant}/>}
         </Stack.Screen>
         <Stack.Screen name='RestaurantDetails'>
-          {props => <RestaurantDetails {...props} restaurants={restaurants} setRestaurants={setRestaurants} handleRestaurant={handleRestaurant}  />}
+          {props => <RestaurantDetails {...props} restaurants={restaurants} setRestaurants={setRestaurants} restaurantName={restaurantName} 
+                      restaurantAddy={restaurantAddy} 
+                      restaurantPhone={restaurantPhone} 
+                      restaurantTags={restaurantTags} 
+                      restaurantRate={restaurantRate} 
+                      restaurantDesc={restaurantDesc} 
+                      setRestaurantName={setRestaurantName} 
+                      setRestaurantAddy={setRestaurantAddy} 
+                      setRestaurantPhone={setRestaurantPhone} 
+                      setRestaurantTags={setRestaurantTags} 
+                      setRestaurantRate={setRestaurantRate} 
+                      setRestaurantDesc={setRestaurantDesc} />}
         </Stack.Screen>
         <Stack.Screen name='EditRestaurant'>
-          {props => <EditRestaurant {...props} restaurants={restaurants} setRestaurants={setRestaurants}  />}
+          {props => <EditRestaurant {...props} restaurants={restaurants} setRestaurants={setRestaurants} restaurantName={restaurantName} 
+                      restaurantAddy={restaurantAddy} 
+                      restaurantPhone={restaurantPhone} 
+                      restaurantTags={restaurantTags} 
+                      restaurantRate={restaurantRate} 
+                      restaurantDesc={restaurantDesc} 
+                      setRestaurantName={setRestaurantName} 
+                      setRestaurantAddy={setRestaurantAddy} 
+                      setRestaurantPhone={setRestaurantPhone} 
+                      setRestaurantTags={setRestaurantTags} 
+                      setRestaurantRate={setRestaurantRate} 
+                      setRestaurantDesc={setRestaurantDesc} />}
         </Stack.Screen>
         
       </Stack.Navigator>

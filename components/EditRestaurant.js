@@ -22,20 +22,34 @@ import CustomRating from "./CustomRating";
 
 
 function EditRestaurant({route, navigation, ...props}) {
-    const {i, r} = route.params;
-    console.log(r)
-    const[editName, setEditName] = useState(r.newRestaurantName);
-    const[editAddy, setEditAddy] = useState(r.newRestaurantAddy);
-    const[editPhone, setEditPhone] = useState(r.newRestaurantPhone);
-    const[editTag, setEditTag] = useState(r.newRestaurantTags);
-    const[editDesc, setEditDesc] = useState(r.newRestaurantDesc);
-    const[editRate, setEditRate] = useState(r.newRestaurantRate);
-    console.log(...props.restaurants)
+    const {i, r, rs} = route.params;
+    const[restaurantName, setEditName] = useState(r.restaurantName);
+    const[restaurantAddy, setEditAddy] = useState(r.restaurantAddy);
+    const[restaurantPhone, setEditPhone] = useState(r.restaurantPhone);
+    const[restaurantTags, setEditTag] = useState(r.restaurantTags);
+    const[restaurantDesc, setEditDesc] = useState(r.restaurantDesc);
+    const[restaurantRate, setEditRate] = useState(r.restaurantRate);
+    // const[editRestaurants, setEditRestaurants] = useState(r.newRestaurants);
+
     function editRestaurant(){
-        let edited = [...props.restaurants];
-        edited[i] = [{editName,editAddy,editPhone,editTag,editDesc,editRate}];
-        props.setRestaurants(edited);
-        navigation.navigate('Restaurant');
+        // let edited = [{...props.restaurants}];
+        // console.log(`edited: ${edited[0]}`)
+        // console.log(editName);
+        // edited[i] = [{editName,editAddy,editPhone,editTag,editDesc,editRate}];
+        // console.log(edited[1]);
+        // props.setRestaurants(edited);
+        // console.log(`restaurants: ${{...props.restaurants}}`)
+        // navigation.navigate('Restaurant');
+
+        // props.restaurants[i] = [{editName, editAddy, editPhone, editTag, editDesc, editRate}];
+        console.log(props.restaurants[i]);
+        let edited = props.restaurants;
+        edited[i] = {restaurantName,restaurantAddy,restaurantPhone,restaurantTags,restaurantDesc,restaurantRate}
+        console.log(edited[i]);
+        console.log(edited);
+        props.setRestaurants[edited];
+        console.log(props.restaurants);
+        navigation.navigate('Restaurant')
     }
 
 
@@ -44,28 +58,14 @@ function EditRestaurant({route, navigation, ...props}) {
     <ScrollView>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={{padding:20, justifyContent:'space-evenly'}}>
-                    <TextInput style={[styles.input]} placeholder='Enter Name' value={editName.toString()} onChangeText={(text)=>setEditName(text)} ></TextInput>
-                    <TextInput style={[styles.input]} placeholder='Enter Address...' value={editAddy.toString()} onChangeText={(text)=>setEditAddy(text)} ></TextInput>
-                    <TextInput style={[styles.input]} placeholder='Phone Number...' value={editPhone.toString()} onChangeText={(text)=>setEditPhone(text)}></TextInput>
-                    <TextInput style={[styles.input]} placeholder='Tag ie;#vegan' value={editTag.toString()} onChangeText={(text)=>setEditTag(text)}></TextInput>
-                    <TextInput style={[styles.input, {height: 80} ]} placeholder='Description' value={editDesc.toString()} onChangeText={(text)=>setEditDesc(text)}></TextInput>
+                    <TextInput style={[styles.input]} placeholder='Enter Name' value={restaurantName.toString()} onChangeText={(text)=>setEditName(text)} ></TextInput>
+                    <TextInput style={[styles.input]} placeholder='Enter Address...' value={restaurantAddy.toString()} onChangeText={(text)=>setEditAddy(text)} ></TextInput>
+                    <TextInput style={[styles.input]} placeholder='Phone Number...' value={restaurantPhone.toString()} onChangeText={(text)=>setEditPhone(text)}></TextInput>
+                    <TextInput style={[styles.input]} placeholder='Tag ie;#vegan' value={restaurantTags.toString()} onChangeText={(text)=>setEditTag(text)}></TextInput>
+                    <TextInput style={[styles.input, {height: 80} ]} placeholder='Description' value={restaurantDesc.toString()} onChangeText={(text)=>setEditDesc(text)}></TextInput>
                     <Text style={styles.ratingText}>Rating:  </Text>
-                    <CustomRating style={{paddingTop:0}} value={editRate} onPress={(text) => props.setRestaurantRate(text)}/>
-                    <TouchableOpacity style={styles.button} onPress={() => {
-                        if(props.restaurantName===''){
-                            Alert.alert('Please type something');
-                        }else if(props.restaurantAddy===''){
-                            Alert.alert('Please type something');
-                        }else if(props.restaurantPhone===''){
-                            Alert.alert('Please type something');
-                        }else if(props.restaurantTags===''){
-                            Alert.alert('Please type something');
-                        }else if(props.restaurantDesc===''){
-                            Alert.alert('Please type something');
-                        }
-                        else{
-                            editRestaurant();
-                        }}}>
+                    <CustomRating style={{paddingTop:0}} value={restaurantRate} onPress={(text) => setEditRate(text)}/>
+                    <TouchableOpacity style={styles.button} onPress={() => {editRestaurant(); }}>
                         <Text style={styles.buttonText}>Save</Text></TouchableOpacity>
                 </View>
             </TouchableWithoutFeedback>
