@@ -53,7 +53,7 @@ const Restaurant = ({navigation, ...props}) => {
         props.restaurants.map((item,index) => 
             <View style={styles.item} key={index}>
                 <View>
-                <TouchableOpacity onPress={() => navigation.navigate('RestaurantDetails', {id: index, restaurant: props.item})}>
+                <TouchableOpacity onPress={() => navigation.navigate('RestaurantDetails', {id: index, restaurant: item})}>
                       <Text style={styles.index}>{index+1}. Name: {item.newRestaurantName}</Text>
                       <Text style={styles.index}>Address: {item.newRestaurantAddy}</Text>
                       <Text style={styles.index}>Phone: {item.newRestaurantPhone}</Text>

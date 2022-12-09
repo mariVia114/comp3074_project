@@ -6,6 +6,7 @@ import Restaurant from './components/Restaurant';
 import AddRestaurant from './components/AddRestaurant';
 import { useState } from 'react';
 import RestaurantDetails from './components/RestaurantDetails';
+import EditRestaurant from './components/EditRestaurant';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -71,8 +72,12 @@ export default function App() {
                       handleRestaurant={handleRestaurant}/>}
         </Stack.Screen>
         <Stack.Screen name='RestaurantDetails'>
-          {props => <RestaurantDetails {...props} restaurants={restaurants} setRestaurants={setRestaurants}  />}
+          {props => <RestaurantDetails {...props} restaurants={restaurants} setRestaurants={setRestaurants} handleRestaurant={handleRestaurant}  />}
         </Stack.Screen>
+        <Stack.Screen name='EditRestaurant'>
+          {props => <EditRestaurant {...props} restaurants={restaurants} setRestaurants={setRestaurants}  />}
+        </Stack.Screen>
+        
       </Stack.Navigator>
     </NavigationContainer>
   );

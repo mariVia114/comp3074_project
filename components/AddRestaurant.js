@@ -2,30 +2,10 @@ import { TouchableWithoutFeedback } from "@ui-kitten/components/devsupport";
 import React, {useState} from "react";
 import { Text, StyleSheet, ScrollView, Keyboard, TextInput, View, TouchableOpacity, Image, Alert } from "react-native";
 import * as Style from "../assets/styles";
+import CustomRating from './CustomRating';
 
 
 const AddRestaurant = ({navigation, ...props}) =>{
-    const [defaultRating, setDefaultRating] = useState(2)
-    const [maxRating, setMaxRating] = useState([1,2,3,4,5])
-    const starImgFilled = 'https://raw.githubusercontent.com/tranhonghan/images/main/star_filled.png'
-    const starImgCorner =  'https://raw.githubusercontent.com/tranhonghan/images/main/star_corner.png'
-    
-    const CustomRating = () =>{
-        return(
-            <View style={styles.customRating}>
-                {
-                    maxRating.map((item, key) => {
-                        return(
-                            <TouchableOpacity activeOpacity={0.7} key={item} onPress={() => setDefaultRating(item)}>
-                                <Image style={styles.starImgStyle} source={item<=defaultRating ? {uri:starImgFilled} : {uri:starImgCorner}}/>
-                            </TouchableOpacity>
-                        )
-                    })
-                }
-
-            </View>
-        )
-    }
     return(
         <ScrollView>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -40,15 +20,20 @@ const AddRestaurant = ({navigation, ...props}) =>{
                     <TouchableOpacity style={styles.button} onPress={() => {
                         if(props.restaurantName===''){
                             Alert.alert('Please type something');
-                        }else{
+                        }if(props.restaurantAddy===''){
+                            Alert.alert('Please type something');
+                        }if(props.restaurantPhone===''){
+                            Alert.alert('Please type something');
+                        }if(props.restaurantTags===''){
+                            Alert.alert('Please type something');
+                        }if(props.restaurantDesc===''){
+                            Alert.alert('Please type something');
+                        }
+                        else{
                             props.handleRestaurant();
                             navigation.navigate('Restaurant')
                         }
                     }}><Text style={styles.buttonText} onPress={()=> props.handleRestaurant()}>Add</Text></TouchableOpacity>
-                
-                
-
-
                 </View>
             </TouchableWithoutFeedback>
         </ScrollView>

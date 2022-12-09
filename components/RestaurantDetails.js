@@ -17,10 +17,9 @@ import {
 } from "@ui-kitten/components";
 import * as eva from "@eva-design/eva";
 
-const RestaurantDetails = ({route, ...props}) => {
+const RestaurantDetails = ({route, navigation, ...props}) => {
     const {id, restaurant} = route.params;
     console.log(restaurant)
-
 
 
 
@@ -35,7 +34,7 @@ const RestaurantDetails = ({route, ...props}) => {
                       <Text style={styles.index}>Rating: {restaurant.newRestaurantRate}</Text>
             </View>
             <View style={styles.buttonWrapper}>
-            <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate('RestaurantDetails', {id: index, restaurant: item})}>
+            <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate('EditRestaurant', {i: id, r: restaurant})}>
                 <IconRegistry icons={EvaIconsPack}/>
                     <ApplicationProvider {...eva} theme={eva.light}>
                     <Icon name="edit-outline" fill="white" style={{ width: 25, height: 30}}/>
