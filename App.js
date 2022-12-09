@@ -2,14 +2,27 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Restaurant from './components/Restaurant';
 import AddRestaurant from './components/AddRestaurant';
 import { useState } from 'react';
 import RestaurantDetails from './components/RestaurantDetails';
 import EditRestaurant from './components/EditRestaurant';
+import About from './components/About';
 
-const Stack = createNativeStackNavigator();
-export default function App() {
+  
+
+const BottomStack = createNativeStackNavigator();
+function AboutStackScreen() {
+  return (
+    <BottomStack.Navigator>
+      <BottomStack.Screen name= 'About' component={About}/>
+      <BottomStack.Screen name= 'Restaurant' component={Restaurant} />
+    </BottomStack.Navigator>
+  )
+}
+const RestaurantStack = createNativeStackNavigator();
+function RestaurantStackScreen() {
   const [restaurantName, setRestaurantName] = useState();
   const [restaurantAddy, setRestaurantAddy] = useState();
   const [restaurantPhone, setRestaurantPhone] = useState();
@@ -33,15 +46,12 @@ export default function App() {
     setRestaurantTags('')
     setRestaurantRate('')
     setRestaurantDesc('')
-
-
-
   }
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Restaurant">
-          {props => <Restaurant{...props} restaurants={restaurants} setRestaurants={setRestaurants} 
+    <RestaurantStack.Navigator>
+      <RestaurantStack.Screen name="Restaurant">
+          {props => 
+                    <Restaurant{...props} restaurants={restaurants} setRestaurants={setRestaurants} 
                     restaurantName={restaurantName} 
                       restaurantAddy={restaurantAddy} 
                       restaurantPhone={restaurantPhone} 
@@ -53,9 +63,10 @@ export default function App() {
                       setRestaurantPhone={setRestaurantPhone} 
                       setRestaurantTags={setRestaurantTags} 
                       setRestaurantRate={setRestaurantRate} 
-                      setRestaurantDesc={setRestaurantDesc} />}
-        </Stack.Screen>
-        <Stack.Screen name='AddRestaurant'>
+                      setRestaurantDesc={setRestaurantDesc} />
+            }
+        </RestaurantStack.Screen>
+        <RestaurantStack.Screen name='AddRestaurant'>
           {props => <AddRestaurant{...props} 
                       restaurantName={restaurantName} 
                       restaurantAddy={restaurantAddy} 
@@ -70,16 +81,32 @@ export default function App() {
                       setRestaurantRate={setRestaurantRate} 
                       setRestaurantDesc={setRestaurantDesc} 
                       handleRestaurant={handleRestaurant}/>}
-        </Stack.Screen>
-        <Stack.Screen name='RestaurantDetails'>
+        </RestaurantStack.Screen>
+        <RestaurantStack.Screen name='RestaurantDetails'>
           {props => <RestaurantDetails {...props} restaurants={restaurants} setRestaurants={setRestaurants} handleRestaurant={handleRestaurant}  />}
-        </Stack.Screen>
-        <Stack.Screen name='EditRestaurant'>
+        </RestaurantStack.Screen>
+        <RestaurantStack.Screen name='EditRestaurant'>
           {props => <EditRestaurant {...props} restaurants={restaurants} setRestaurants={setRestaurants}  />}
-        </Stack.Screen>
-        
-      </Stack.Navigator>
+        </RestaurantStack.Screen>
+        <RestaurantStack.Screen name= 'About' component={About} />
+    </RestaurantStack.Navigator>
+  )
+}
+
+const Tab = createBottomTabNavigator();
+
+export default function App() {
+
+  return (
+    <>
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name='Restaurant' component={RestaurantStackScreen} />
+        <Tab.Screen name='About' component={AboutStackScreen} />
+      </Tab.Navigator>    
     </NavigationContainer>
+    </>
+    
   );
 }
 
