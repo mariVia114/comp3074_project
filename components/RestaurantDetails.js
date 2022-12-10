@@ -29,7 +29,12 @@ const RestaurantDetails = ({route, navigation, ...props}) => {
       //Here is the Share API
       Share.share({
         // restaurant name
-        message: "Name: " + route.params.restaurant.newRestaurantName
+        message: "Restaurant Name: " + [route.params.restaurant.newRestaurantName, 
+          "\nAddress: " + route.params.restaurant.newRestaurantAddy, 
+          "\nPhone: " + route.params.restaurant.newRestaurantPhone, 
+          "\nTags: " + route.params.restaurant.newRestaurantTags,
+          "\nRate: " + route.params.restaurant.newRestaurantRate,  
+          "\nDescription: " + route.params.restaurant.newRestaurantDesc]
       })
         //after successful share return result
         .then((result) => console.log(result))
