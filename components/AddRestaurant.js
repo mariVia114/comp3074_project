@@ -16,7 +16,7 @@ const AddRestaurant = ({navigation, ...props}) =>{
                     <TextInput style={[styles.input]} placeholder='Tag ie;#vegan' value={props.restaurantTags} onChangeText={(text) => props.setRestaurantTags(text)}></TextInput>
                     <TextInput style={[styles.input, {height: 80} ]} placeholder='Description' value={props.restaurantDesc} onChangeText={(text) => props.setRestaurantDesc(text)}></TextInput>
                     <Text style={styles.ratingText}>Rating:  </Text>
-                    <CustomRating style={{paddingTop:0}} value={props.restaurantRate} onPress={(text) => props.setRestaurantTags(text)}/>
+                    <CustomRating style={{paddingTop:0}} value={props.restaurantRate} onPress={(text) => props.setRestaurantRate(text)}/>
                     <TouchableOpacity style={styles.button} onPress={() => {
                         if(props.restaurantName===''){
                             Alert.alert('Please type something');
@@ -36,6 +36,7 @@ const AddRestaurant = ({navigation, ...props}) =>{
                     }}><Text style={styles.buttonText} onPress={()=> props.handleRestaurant()}>Add</Text></TouchableOpacity>
                 </View>
             </TouchableWithoutFeedback>
+
         </ScrollView>
     )
 }
@@ -89,16 +90,7 @@ export const styles = StyleSheet.create({
         fontSize:20,
         fontWeight:'700',
     },
-    customRating:{
-        justifyContent: 'center',
-        flexDirection: 'row',
-        marginTop: 30
-    },
-    starImgStyle:{
-        width:40,
-        height:40,
-        resizeMode:'cover'
-    }
+    
 })
 
 export default AddRestaurant;
