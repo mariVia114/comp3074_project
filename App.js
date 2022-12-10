@@ -32,8 +32,9 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Restaurant">
-          {props => <Restaurant{...props} restaurants={restaurants} setRestaurants={setRestaurants} 
-                    restaurantName={restaurantName} 
+          {props => <Restaurant {...props} 
+                      restaurants={restaurants} setRestaurants={setRestaurants} 
+                      restaurantName={restaurantName} 
                       restaurantAddy={restaurantAddy} 
                       restaurantPhone={restaurantPhone} 
                       restaurantTags={restaurantTags} 
@@ -47,7 +48,9 @@ export default function App() {
                       setRestaurantDesc={setRestaurantDesc} />}
         </Stack.Screen>
         <Stack.Screen name='AddRestaurant'>
-          {props => <AddRestaurant{...props} 
+          {props => <AddRestaurant {...props} 
+                      restaurants={restaurants} 
+                      setRestaurants={setRestaurants} 
                       restaurantName={restaurantName} 
                       restaurantAddy={restaurantAddy} 
                       restaurantPhone={restaurantPhone} 

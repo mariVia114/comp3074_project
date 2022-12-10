@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
   Text,
   StyleSheet,
@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
+  Alert,
+  Keyboard,
 } from "react-native";
 import * as Style from "../assets/styles";
 import { EvaIconsPack } from "@ui-kitten/eva-icons";
@@ -18,6 +20,32 @@ import {
 import * as eva from "@eva-design/eva";
 
 const Restaurant = ({navigation, ...props}) => {
+  const [searchRest, setSearchRest] = useState();
+  function search(){
+    if(searchRest===''){
+      Alert.alert('Type something in the search box');
+    }else if(searchRest!==''){
+      props.restaurants.forEach((item, index) =>{
+        if(item.restaurantName === searchRest){
+          let searchItem = [...props.restaurants];
+          let first = searchItem[0];
+          let index = [...props.restaurants].indexOf(item);
+          searchItem[0] = item;
+          searchItem[index] = first;
+          props.setRestaurants(searchItem);
+        }if(item.restaurantTags === searchRest){
+          let searchItem = [...props.restaurants];
+          let first = searchItem[0];
+          let index = [...props.restaurants].indexOf(item);
+          searchItem[0] = item;
+          searchItem[index] = first;
+          props.setRestaurants(searchItem);
+        }
+      })
+    }
+    setSearchRest('');
+    Keyboard.dismiss();
+  }
   return (
     <View style={styles.restaurantContainer}>
       <View style={styles.headingContainer}>
@@ -31,8 +59,9 @@ const Restaurant = ({navigation, ...props}) => {
             <TextInput
             placeholder="enter restaurant name or tag..."
             style={[styles.input, { borderWidth: 3 }]}
+            value={searchRest} onChangeText={(text) => setSearchRest(text)}
             ></TextInput>
-            <TouchableOpacity style={[styles.searchButton, { width: 30 }]}>
+            <TouchableOpacity style={[styles.searchButton, { width: 30 }]} onPress={()=>search()}>
                 <IconRegistry icons={EvaIconsPack}/>
                     <ApplicationProvider {...eva} theme={eva.light}>
                     <Icon name="search" fill="white" style={{ width: 25, height: 40 }}/>
@@ -44,17 +73,17 @@ const Restaurant = ({navigation, ...props}) => {
         </View>
       </View>
       <ScrollView style={styles.scrollView} showsHorizontalScrollIndicator={false}>
-      {console.log("restaurant js" + props.restaurants)}
         {props.restaurants.length == 0
         ?
         <View style={styles.emptyRestaurantContainer}>
             <Text style={styles.emptyRestaurantText}>There is no restaurant on the list yet!</Text>
         </View>
         :
+        
         props.restaurants.map((item,index) => 
             <View style={styles.item} key={index}>
                 <View>
-                <TouchableOpacity onPress={() => navigation.navigate('RestaurantDetails', {id: index, restaurant: item})}>
+                <TouchableOpacity onPress={() => navigation.navigate('RestaurantDetails', {id: index})}>
                       <Text style={styles.index}>{index+1}. Name: {item.restaurantName}</Text>
                       <Text style={styles.index}>Address: {item.restaurantAddy}</Text>
                       <Text style={styles.index}>Phone: {item.restaurantPhone}</Text>

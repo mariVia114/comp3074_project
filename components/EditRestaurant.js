@@ -22,38 +22,20 @@ import CustomRating from "./CustomRating";
 
 
 function EditRestaurant({route, navigation, ...props}) {
-    const {i, r, rs} = route.params;
-    const[restaurantName, setEditName] = useState(r.restaurantName);
-    const[restaurantAddy, setEditAddy] = useState(r.restaurantAddy);
-    const[restaurantPhone, setEditPhone] = useState(r.restaurantPhone);
-    const[restaurantTags, setEditTag] = useState(r.restaurantTags);
-    const[restaurantDesc, setEditDesc] = useState(r.restaurantDesc);
-    const[restaurantRate, setEditRate] = useState(r.restaurantRate);
-    // const[editRestaurants, setEditRestaurants] = useState(r.newRestaurants);
+    const {i} = route.params;
+    const[restaurantName, setEditName] = useState(props.restaurants[i].restaurantName);
+    const[restaurantAddy, setEditAddy] = useState(props.restaurants[i].restaurantAddy);
+    const[restaurantPhone, setEditPhone] = useState(props.restaurants[i].restaurantPhone);
+    const[restaurantTags, setEditTag] = useState(props.restaurants[i].restaurantTags);
+    const[restaurantDesc, setEditDesc] = useState(props.restaurants[i].restaurantDesc);
+    const[restaurantRate, setEditRate] = useState(props.restaurants[i].restaurantRate);
 
     function editRestaurant(){
-        // let edited = [{...props.restaurants}];
-        // console.log(`edited: ${edited[0]}`)
-        // console.log(editName);
-        // edited[i] = [{editName,editAddy,editPhone,editTag,editDesc,editRate}];
-        // console.log(edited[1]);
-        // props.setRestaurants(edited);
-        // console.log(`restaurants: ${{...props.restaurants}}`)
-        // navigation.navigate('Restaurant');
-
-        // props.restaurants[i] = [{editName, editAddy, editPhone, editTag, editDesc, editRate}];
-        console.log(props.restaurants[i]);
         let edited = props.restaurants;
         edited[i] = {restaurantName,restaurantAddy,restaurantPhone,restaurantTags,restaurantDesc,restaurantRate}
-        console.log(edited[i]);
-        console.log(edited);
-        props.setRestaurants[edited];
-        console.log(props.restaurants);
-        navigation.navigate('Restaurant')
+        props.setRestaurants(edited);
+        navigation.navigate('RestaurantDetails', {id: i});
     }
-
-
-
   return (
     <ScrollView>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

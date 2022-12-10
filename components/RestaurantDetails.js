@@ -18,26 +18,33 @@ import {
 import * as eva from "@eva-design/eva";
 
 const RestaurantDetails = ({route, navigation, ...props}) => {
-    const {id, restaurant} = route.params;
+    const {id} = route.params;
+    function deleteItem(i){
+      let newArr = [...props.restaurants];
+      let deleted = newArr.splice(i,1);
+      props.setRestaurants(newArr);
+      navigation.navigate('Restaurant')
+
+    }
     return(
         <View style={styles.restaurantContainer}>
             <View>
-                      <Text style={styles.index}>{restaurant.restaurantName}</Text>
-                      <Text style={styles.index}>Address: {restaurant.restaurantAddy}</Text>
-                      <Text style={styles.index}>Phone: {restaurant.restaurantPhone}</Text>
-                      <Text style={styles.index}>Tags: {restaurant.restaurantTags}</Text>
-                      <Text style={styles.index}>Description: {restaurant.restaurantDesc}</Text>
-                      <Text style={styles.index}>Rating: {restaurant.restaurantRate}</Text>
+                      <Text style={styles.index}>{props.restaurants[id].restaurantName}</Text>
+                      <Text style={styles.index}>Address: {props.restaurants[id].restaurantAddy}</Text>
+                      <Text style={styles.index}>Phone: {props.restaurants[id].restaurantPhone}</Text>
+                      <Text style={styles.index}>Tags: {props.restaurants[id].restaurantTags}</Text>
+                      <Text style={styles.index}>Description: {props.restaurants[id].restaurantDesc}</Text>
+                      <Text style={styles.index}>Rating: {props.restaurants[id].restaurantRate}</Text>
             </View>
             <View style={styles.buttonWrapper}>
-            <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate('EditRestaurant', {i: id, r: restaurant})}>
+            <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate('EditRestaurant', {i: id})}>
                 <IconRegistry icons={EvaIconsPack}/>
                     <ApplicationProvider {...eva} theme={eva.light}>
                     <Icon name="edit-outline" fill="white" style={{ width: 25, height: 30}}/>
                     </ApplicationProvider>
                     <Text style={styles.editButtonText}>Edit</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.deleteButton}>
+            <TouchableOpacity style={styles.deleteButton} onPress={() => deleteItem(id)}>
                 <IconRegistry icons={EvaIconsPack}/>
                     <ApplicationProvider {...eva} theme={eva.light}>
                     <Icon name="trash-2-outline" fill="white" style={{ width: 25, height: 30}}/>

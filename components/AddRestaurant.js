@@ -16,7 +16,7 @@ const AddRestaurant = ({navigation, ...props}) =>{
                     <TextInput style={[styles.input]} placeholder='Tag ie;#vegan' value={props.restaurantTags} onChangeText={(text) => props.setRestaurantTags(text)}></TextInput>
                     <TextInput style={[styles.input, {height: 80} ]} placeholder='Description' value={props.restaurantDesc} onChangeText={(text) => props.setRestaurantDesc(text)}></TextInput>
                     <Text style={styles.ratingText}>Rating:  </Text>
-                    <CustomRating style={{paddingTop:0}} value={props.restaurantRate} onPress={(text) => props.setRestaurantTags(text)}/>
+                    <CustomRating style={{paddingTop:0}} value={props.restaurantRate} onPress={(text) => props.setRestaurantRate(text)}/>
                     <TouchableOpacity style={styles.button} onPress={() => {
                         if(props.restaurantName===''){
                             Alert.alert('Please type something');
@@ -33,7 +33,7 @@ const AddRestaurant = ({navigation, ...props}) =>{
                             props.handleRestaurant();
                             navigation.navigate('Restaurant')
                         }
-                    }}><Text style={styles.buttonText} onPress={()=> props.handleRestaurant()}>Add</Text></TouchableOpacity>
+                    }}><Text style={styles.buttonText}>Add</Text></TouchableOpacity>
                 </View>
             </TouchableWithoutFeedback>
         </ScrollView>
