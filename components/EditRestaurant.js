@@ -49,7 +49,7 @@ function EditRestaurant({route, navigation, ...props}) {
                     {
                          <View style={styles.customRating}>      
                          {
-                             [1,2,3,4,5].map((item) => {
+                             ['1★','2★','3★','4★','5★'].map((item) => {
                                  return(
                                      <TouchableOpacity activeOpacity={0.7} key={item} value={restaurantRate.toString()} onPress={(text) =>  props.setRestaurantRate(text)}>
                                          <Ionicons style={styles.starImgStyle} name= { item<= restaurantRate ? 'star' :  'star-outline'} />
