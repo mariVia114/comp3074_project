@@ -9,18 +9,21 @@ import { useState } from 'react';
 import RestaurantDetails from './components/RestaurantDetails';
 import EditRestaurant from './components/EditRestaurant';
 import About from './components/About';
+import { Ionicons } from '@expo/vector-icons';
 
-  
+const aboutName = 'About'
+const restaurantName = 'Restaurant'
 
 const BottomStack = createNativeStackNavigator();
 function AboutStackScreen() {
   return (
     <BottomStack.Navigator>
-      <BottomStack.Screen name= 'About' component={About}/>
-      <BottomStack.Screen name= 'Restaurant' component={Restaurant} />
+      <BottomStack.Screen name= {aboutName} component={About}/>
+      <BottomStack.Screen name= {restaurantName} component={Restaurant} />
     </BottomStack.Navigator>
   )
 }
+
 const RestaurantStack = createNativeStackNavigator();
 function RestaurantStackScreen() {
   const [restaurantName, setRestaurantName] = useState();
@@ -29,30 +32,24 @@ function RestaurantStackScreen() {
   const [restaurantTags, setRestaurantTags] = useState();
   const [restaurantRate, setRestaurantRate] = useState();
   const [restaurantDesc, setRestaurantDesc] = useState();
-  const[restaurants, setRestaurants] = useState([]);
+  const [restaurants, setRestaurants] = useState([]);
 
   function handleRestaurant(){
-    let newRestaurantName = restaurantName;
-    let newRestaurantAddy = restaurantAddy;
-    let newRestaurantPhone = restaurantPhone;
-    let newRestaurantTags = restaurantTags;
-    let newRestaurantRate = restaurantRate;
-    let newRestaurantDesc = restaurantDesc;
-    let newRestaurants = [{newRestaurantName,newRestaurantAddy, newRestaurantPhone,newRestaurantTags, newRestaurantRate,newRestaurantDesc}, ...restaurants]
+    let newRestaurants = [{restaurantName,restaurantAddy, restaurantPhone,restaurantTags, restaurantRate,restaurantDesc}, ...restaurants]
     setRestaurants(newRestaurants);
-    setRestaurantName('')
-    setRestaurantAddy('')
-    setRestaurantPhone('')
-    setRestaurantTags('')
-    setRestaurantRate('')
-    setRestaurantDesc('')
+    setRestaurantName('');
+    setRestaurantAddy('');
+    setRestaurantPhone('');
+    setRestaurantTags('');
+    setRestaurantRate('');
+    setRestaurantDesc('');
   }
   return (
-    <RestaurantStack.Navigator>
-      <RestaurantStack.Screen name="Restaurant">
-          {props => 
-                    <Restaurant{...props} restaurants={restaurants} setRestaurants={setRestaurants} 
-                    restaurantName={restaurantName} 
+      <RestaurantStack.Navigator initialRouteName="Restaurant">
+        <RestaurantStack.Screen name="Restaurant">
+          {props => <Restaurant {...props} 
+                      restaurants={restaurants} setRestaurants={setRestaurants} 
+                      restaurantName={restaurantName} 
                       restaurantAddy={restaurantAddy} 
                       restaurantPhone={restaurantPhone} 
                       restaurantTags={restaurantTags} 
@@ -63,11 +60,12 @@ function RestaurantStackScreen() {
                       setRestaurantPhone={setRestaurantPhone} 
                       setRestaurantTags={setRestaurantTags} 
                       setRestaurantRate={setRestaurantRate} 
-                      setRestaurantDesc={setRestaurantDesc} />
-            }
+                      setRestaurantDesc={setRestaurantDesc} />}
         </RestaurantStack.Screen>
         <RestaurantStack.Screen name='AddRestaurant'>
-          {props => <AddRestaurant{...props} 
+          {props => <AddRestaurant {...props} 
+                      restaurants={restaurants} 
+                      setRestaurants={setRestaurants} 
                       restaurantName={restaurantName} 
                       restaurantAddy={restaurantAddy} 
                       restaurantPhone={restaurantPhone} 
@@ -83,26 +81,71 @@ function RestaurantStackScreen() {
                       handleRestaurant={handleRestaurant}/>}
         </RestaurantStack.Screen>
         <RestaurantStack.Screen name='RestaurantDetails'>
-          {props => <RestaurantDetails {...props} restaurants={restaurants} setRestaurants={setRestaurants} handleRestaurant={handleRestaurant}  />}
+          {props => <RestaurantDetails {...props} restaurants={restaurants} setRestaurants={setRestaurants} restaurantName={restaurantName} 
+                      restaurantAddy={restaurantAddy} 
+                      restaurantPhone={restaurantPhone} 
+                      restaurantTags={restaurantTags} 
+                      restaurantRate={restaurantRate} 
+                      restaurantDesc={restaurantDesc} 
+                      setRestaurantName={setRestaurantName} 
+                      setRestaurantAddy={setRestaurantAddy} 
+                      setRestaurantPhone={setRestaurantPhone} 
+                      setRestaurantTags={setRestaurantTags} 
+                      setRestaurantRate={setRestaurantRate} 
+                      setRestaurantDesc={setRestaurantDesc} />}
         </RestaurantStack.Screen>
         <RestaurantStack.Screen name='EditRestaurant'>
-          {props => <EditRestaurant {...props} restaurants={restaurants} setRestaurants={setRestaurants}  />}
-        </RestaurantStack.Screen>
-        <RestaurantStack.Screen name= 'About' component={About} />
-    </RestaurantStack.Navigator>
-  )
+          {props => <EditRestaurant {...props} restaurants={restaurants} setRestaurants={setRestaurants} restaurantName={restaurantName} 
+                      restaurantAddy={restaurantAddy} 
+                      restaurantPhone={restaurantPhone} 
+                      restaurantTags={restaurantTags} 
+                      restaurantRate={restaurantRate} 
+                      restaurantDesc={restaurantDesc} 
+                      setRestaurantName={setRestaurantName} 
+                      setRestaurantAddy={setRestaurantAddy} 
+                      setRestaurantPhone={setRestaurantPhone} 
+                      setRestaurantTags={setRestaurantTags} 
+                      setRestaurantRate={setRestaurantRate} 
+                      setRestaurantDesc={setRestaurantDesc} />}
+        </RestaurantStack.Screen>       
+      </RestaurantStack.Navigator>
+  );
 }
 
 const Tab = createBottomTabNavigator();
-
 export default function App() {
-
   return (
     <>
     <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name='Restaurant' component={RestaurantStackScreen} />
-        <Tab.Screen name='About' component={AboutStackScreen} />
+      <Tab.Navigator screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            if (route.name === restaurantName) {
+              return (
+                <Ionicons
+                  name={
+                    focused
+                      ? 'restaurant'
+                      : 'restaurant-outline'
+                  }
+                  size={size}
+                  color={color}
+                />
+              );
+            } else if (route.name === aboutName) {
+              return (
+                <Ionicons
+                  name={focused ? 'information-outline' : 'information'}
+                  size={size}
+                  color={color}
+                />
+              );
+            }
+          },
+          tabBarInactiveTintColor: 'gray',
+          tabBarActiveTintColor: 'blue',
+        })}>
+        <Tab.Screen name={restaurantName} component={RestaurantStackScreen} />
+        <Tab.Screen name={aboutName} component={AboutStackScreen} />
       </Tab.Navigator>    
     </NavigationContainer>
     </>
