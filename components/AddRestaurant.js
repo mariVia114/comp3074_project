@@ -18,7 +18,7 @@ const AddRestaurant = ({navigation, ...props}) =>{
                     {
                          <View style={styles.customRating}>      
                          {
-                             [1,2,3,4,5].map((item) => {
+                             ['1★','2★','3★','4★','5★'].map((item) => {
                                  return(
                                      <TouchableOpacity activeOpacity={0.7} key={item} value={props.restaurantRate} onPress={() => props.setRestaurantRate(item)}>
                                          <Ionicons style={styles.starImgStyle} name= { item<=props.restaurantRate ? 'star' :  'star-outline'} />
