@@ -142,7 +142,7 @@ export default function App() {
             }
           },
           tabBarInactiveTintColor: 'gray',
-          tabBarActiveTintColor: 'blue',
+          tabBarActiveTintColor: 'black',
         })}>
         <Tab.Screen name={restaurantName} component={RestaurantStackScreen} />
         <Tab.Screen name={aboutName} component={AboutStackScreen} />
