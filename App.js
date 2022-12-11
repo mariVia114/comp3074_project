@@ -18,7 +18,7 @@ const BottomStack = createNativeStackNavigator();
 function AboutStackScreen() {
   return (
     <BottomStack.Navigator>
-      <BottomStack.Screen name= {aboutName} component={About}/>
+      <BottomStack.Screen name= {aboutName} component={About} options={{ headerShown: false }}/>
       <BottomStack.Screen name= {restaurantName} component={Restaurant} />
     </BottomStack.Navigator>
   )
@@ -45,8 +45,8 @@ function RestaurantStackScreen() {
     setRestaurantDesc('');
   }
   return (
-      <RestaurantStack.Navigator initialRouteName="Restaurant">
-        <RestaurantStack.Screen name="Restaurant">
+      <RestaurantStack.Navigator initialRouteName="Restaurant" >
+        <RestaurantStack.Screen name="Restaurant" options={{ headerShown: false }}>
           {props => <Restaurant {...props} 
                       restaurants={restaurants} setRestaurants={setRestaurants} 
                       restaurantName={restaurantName} 
