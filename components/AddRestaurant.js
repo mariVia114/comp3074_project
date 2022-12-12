@@ -39,8 +39,6 @@ const AddRestaurant = ({navigation, ...props}) =>{
                         placeholder="Type a place"
                         query={{key: "AIzaSyBo_rPeEwPDVE_a0dib_IuTGivH43TSvAE", language: 'en'}}
                         onPress={(data, details ) => {
-                            // 'details' is provide when fetchDetails = true
-                            // console.log(data, details);
                             props.setRestaurantAddress({ value: data.description, coordinates: details.geometry.location })
                         }}
                         fetchDetails={true}
