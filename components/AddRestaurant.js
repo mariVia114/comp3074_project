@@ -2,8 +2,7 @@ import { TouchableWithoutFeedback } from "@ui-kitten/components/devsupport";
 import React, {useState} from "react";
 import { Text, StyleSheet, ScrollView, Keyboard, TextInput, View, TouchableOpacity, Image, Alert } from "react-native";
 import * as Style from "../assets/styles";
-import CustomRating from './CustomRating';
-
+import { Ionicons } from '@expo/vector-icons';
 
 const AddRestaurant = ({navigation, ...props}) =>{
     return(
@@ -16,7 +15,19 @@ const AddRestaurant = ({navigation, ...props}) =>{
                     <TextInput style={[styles.input]} placeholder='Tag ie;#vegan' value={props.restaurantTags} onChangeText={(text) => props.setRestaurantTags(text)}></TextInput>
                     <TextInput style={[styles.input, {height: 80} ]} placeholder='Description' value={props.restaurantDesc} onChangeText={(text) => props.setRestaurantDesc(text)}></TextInput>
                     <Text style={styles.ratingText}>Rating:  </Text>
-                    <CustomRating style={{paddingTop:0}} value={props.restaurantRate} onPress={(text) => props.setRestaurantTags(text)}/>
+                    {
+                         <View style={styles.customRating}>      
+                         {
+                             ['1★','2★','3★','4★','5★'].map((item) => {
+                                 return(
+                                     <TouchableOpacity activeOpacity={0.7} key={item} value={props.restaurantRate} onPress={() => props.setRestaurantRate(item)}>
+                                         <Ionicons style={styles.starImgStyle} name= { item<=props.restaurantRate ? 'star' :  'star-outline'} />
+                                     </TouchableOpacity>
+                                 )
+                             })
+                         }
+                     </View> 
+                    }
                     <TouchableOpacity style={styles.button} onPress={() => {
                         if(props.restaurantName===''){
                             Alert.alert('Please type something');
@@ -29,11 +40,14 @@ const AddRestaurant = ({navigation, ...props}) =>{
                         }if(props.restaurantDesc===''){
                             Alert.alert('Please type something');
                         }
+                        if(props.restaurantRate === undefined || props.restaurantRate === NaN ){
+                            Alert.alert('Please type something and rate' );
+                        }
                         else{
                             props.handleRestaurant();
                             navigation.navigate('Restaurant')
                         }
-                    }}><Text style={styles.buttonText} onPress={()=> props.handleRestaurant()}>Add</Text></TouchableOpacity>
+                    }}><Text style={styles.buttonText}>Add</Text></TouchableOpacity>
                 </View>
             </TouchableWithoutFeedback>
         </ScrollView>
