@@ -1,23 +1,53 @@
+import React, { useState } from 'react';
+import MapView from 'react-native-maps';
+import { StyleSheet, View, Text } from 'react-native';
 import MapViewDirections from 'react-native-maps-directions';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import { StyleSheet, View } from 'react-native';
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 
 
-const origin = {latitude: 37.3318456, longitude: -122.0296002};
-const destination = {latitude: 37.771707, longitude: -122.4053769};
-const GOOGLE_MAPS_APIKEY = 'AIzaSyCizv9r0b-6d1pB354AyaH4nxEZiuZJVTI-iRE';
+export default function Directions({ route, ...props }) {
+  const { id, restaurant } = route.params;
+  const destination = { latitude: restaurant.newRestaurantAddress.coordinates.lat, longitude: restaurant.newRestaurantAddress.coordinates.lng };
+  const [startAddress, setStartAddress] = useState(destination)
 
-const Directions = () => {
   return (
     <View style={styles.container}>
-      <MapView provider={PROVIDER_GOOGLE} style={styles.map}>
-        <MapViewDirections
-          origin={origin}
-          destination={destination}
-          apikey={GOOGLE_MAPS_APIKEY}
-        />
+      <GooglePlacesAutocomplete
+                        placeholder="Your current Location"
+                        query={{key: "AIzaSyBo_rPeEwPDVE_a0dib_IuTGivH43TSvAE", language: 'en'}}
+                        onPress={(data, details ) => {
+                            setStartAddress({ latitude: details.geometry.location.lat, longitude: details.geometry.location.lng })
+                        }}
+                        fetchDetails={true}
+                        onFail={error => console.log(error)}
+                        onNotFound={() => console.log('no results')}
+                        listEmptyComponent={() => (
+                        <View style={{flex: 1}}>
+                            <Text>No results were found</Text>
+                        </View>
+                        )}
+                    />
+
+      <View style={styles.container}>
+      <MapView style={StyleSheet.absoluteFill}
+         initialRegion={{
+      latitude: restaurant.newRestaurantAddress.coordinates.lat,
+      longitude: restaurant.newRestaurantAddress.coordinates.lng,
+      latitudeDelta: 0.0922,  
+      longitudeDelta: 0.0421,
+    }}>
+      <MapViewDirections
+    origin={startAddress}
+    destination={destination}
+    apikey={'AIzaSyA5PBfjz_EW-GhPIBwPYdyQzYds1tH9_bM'}
+    onError={(msg) => console.log('directions error', msg)}
+    strokeWidth={4}
+    strokeColor="black"
+    mode='DRIVING'
+  />
     </MapView>
-  </View>
+    </View>
+    </View>
   );
 }
 
@@ -30,5 +60,3 @@ const styles = StyleSheet.create({
     height: '100%',
   },
 });
-
-export default Directions;  

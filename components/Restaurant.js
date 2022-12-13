@@ -1,4 +1,5 @@
 import React from "react";
+import Rating from 'react-native-easy-rating';
 import {
   Text,
   StyleSheet,
@@ -58,9 +59,13 @@ const Restaurant = ({navigation, ...props}) => {
                       <Text style={styles.index}>Address: {item.newRestaurantAddy}</Text>
                       <Text style={styles.index}>Google Address: {item.newRestaurantAddress.value}</Text>
                       <Text style={styles.index}>Phone: {item.newRestaurantPhone}</Text>
-                      <Text style={styles.index}>Tags: {item.newRestaurantTags}</Text>
+                      <Text style={styles.index}>Tags: {item.rating}</Text>
                       <Text style={styles.index}>Description: {item.newRestaurantDesc}</Text>
-                      <Text style={styles.index}>Rating: {item.newRestaurantRate}</Text>
+                      <Rating rating={item.newRating}
+                        max={5}
+                        iconWidth={24}
+                        iconHeight={24}
+                        editable={false} />
                 </TouchableOpacity>
 
                   <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate('Directions', {id: index, restaurant: item})}>

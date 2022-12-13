@@ -2,6 +2,7 @@ import { TouchableWithoutFeedback } from "@ui-kitten/components/devsupport";
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import React, {useState} from "react";
 import { Text, StyleSheet, ScrollView, Keyboard, TextInput, View, TouchableOpacity, Image, Alert } from "react-native";
+import  Rating from 'react-native-easy-rating'; 
 import * as Style from "../assets/styles";
 
 
@@ -29,6 +30,7 @@ const AddRestaurant = ({navigation, ...props}) =>{
     }
     return(
         <ScrollView keyboardShouldPersistTaps="handled">
+        <View>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={{padding:20, justifyContent:'space-evenly'}}>
                     <TextInput style={[styles.input]} placeholder='Enter Name' value={props.restaurantName} onChangeText={(text) => props.setRestaurantName(text)}></TextInput>
@@ -37,8 +39,6 @@ const AddRestaurant = ({navigation, ...props}) =>{
                         placeholder="Type a place"
                         query={{key: "AIzaSyBo_rPeEwPDVE_a0dib_IuTGivH43TSvAE", language: 'en'}}
                         onPress={(data, details ) => {
-                            // 'details' is provide when fetchDetails = true
-                            console.log(data, details);
                             props.setRestaurantAddress({ value: data.description, coordinates: details.geometry.location })
                         }}
                         fetchDetails={true}
@@ -56,7 +56,12 @@ const AddRestaurant = ({navigation, ...props}) =>{
                     <TextInput style={[styles.input]} placeholder='Tag ie;#vegan' value={props.restaurantTags} onChangeText={(text) => props.setRestaurantTags(text)}></TextInput>
                     <TextInput style={[styles.input, {height: 80} ]} placeholder='Description' value={props.restaurantDesc} onChangeText={(text) => props.setRestaurantDesc(text)}></TextInput>
                     <Text style={styles.ratingText}>Rating:  </Text>
-                    <CustomRating style={{paddingTop:0}} value={props.restaurantRate} onPress={(text) => props.setRestaurantTags(text)}/>
+                    <Rating rating={props.rating}
+                        max={5}
+                        iconWidth={24}
+                        iconHeight={24}
+                        onRate={props.setRating}/>
+
                     <TouchableOpacity style={styles.button} onPress={() => {
                         if(props.restaurantName===''){
                             Alert.alert('Please type something');
@@ -71,6 +76,9 @@ const AddRestaurant = ({navigation, ...props}) =>{
 
                 </View>
             </TouchableWithoutFeedback>
+
+            </View>
+
         </ScrollView>
     )
 }

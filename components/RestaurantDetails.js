@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import  Rating from 'react-native-easy-rating';
 import {
   Text,
   StyleSheet,
@@ -19,7 +20,7 @@ import * as eva from "@eva-design/eva";
 
 const RestaurantDetails = ({route, ...props}) => {
     const {id, restaurant} = route.params;
-    console.log(restaurant)
+    // console.log(restaurant)
 
 
 
@@ -31,9 +32,9 @@ const RestaurantDetails = ({route, ...props}) => {
                       <Text style={styles.index}>Address: {restaurant.newRestaurantAddy}</Text>
                       <Text style={styles.index}>Google Address: {restaurant.newRestaurantAddress.value} [{restaurant.newRestaurantAddress.coordinates.lat}, {restaurant.newRestaurantAddress.coordinates.lng}]</Text>
                       <Text style={styles.index}>Phone: {restaurant.newRestaurantPhone}</Text>
-                      <Text style={styles.index}>Tags: {restaurant.newRestaurantTags}</Text>
+                      <Text style={styles.index}>Tags: {restaurant.rating}</Text>
                       <Text style={styles.index}>Description: {restaurant.newRestaurantDesc}</Text>
-                      <Text style={styles.index}>Rating: {restaurant.newRestaurantRate}</Text>
+                      <Text style={styles.index}>Rating: {restaurant.rating}</Text>
             </View>
             <View style={styles.buttonWrapper}>
             <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate('RestaurantDetails', {id: index, restaurant: item})}>
